@@ -47,6 +47,12 @@
     "url-parse": "^1.5.10",
     "uuidv4": "^6.2.13"
   },
+  "overrides": {
+    "ably": "^1.2.50"
+  },
+  "resolutions": {
+    "ably": "^1.2.50"
+  },
   "devDependencies": {
     "@types/async": "^3.2.18",
     "@types/express": "^4.17.17",
