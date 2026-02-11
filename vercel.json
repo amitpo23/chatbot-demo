@@ -1,0 +1,19 @@
+{
+  "functions": {
+    "src/pages/api/slack/events.ts": {
+      "maxDuration": 10
+    },
+    "src/pages/api/slack/respond.ts": {
+      "maxDuration": 30
+    },
+    "src/pages/api/chat.ts": {
+      "maxDuration": 30
+    },
+    "src/pages/api/ingest/file.ts": {
+      "maxDuration": 60
+    },
+    "src/pages/api/crawl.ts": {
+      "maxDuration": 60
+    }
+  }
+}

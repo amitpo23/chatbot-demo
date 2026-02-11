@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { FpjsProvider } from "@fingerprintjs/fingerprintjs-pro-react";
 import { configureAbly } from "@ably-labs/react-hooks";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 const prefix = process.env.API_ROOT || "";
 
@@ -23,6 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
     >
       <Component {...pageProps} />
+      <SpeedInsights />
     </FpjsProvider>
   );
 }

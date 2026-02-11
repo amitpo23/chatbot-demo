@@ -1,0 +1,217 @@
+# KNOWAA Global Travel Network — Complete Knowledge Base
+# Document Version: 2.1 | February 2026
+
+## COMPANY OVERVIEW
+
+### Executive Summary
+Knowaa Global is a dynamic, technology-first travel operator specializing in high-end hospitality distribution. Established approximately two years ago, we have rapidly positioned ourselves as a key player in the B2B travel sector, primarily serving small and independent travel agencies. While we maintain a curated B2C presence, our core competency and operational focus remain on empowering business-to-business partnerships through superior inventory access and technological integration.
+
+Our operational philosophy is built on the intersection of direct hotel relationships and advanced technological infrastructure. We are not merely a booking channel; we are a tech-enabled partner that bridges the gap between premium hotel properties and independent agencies.
+
+### Contact Information
+- Email: info@knowaaglobal.com
+- Partnerships: partnerships@knowaaglobal.com
+- Operational Support: support@knowaaglobal.com
+- WhatsApp / Emergency: +1 786-452-4140
+- Address: 4747 Collins Ave, Miami Beach, FL 33140
+- Website: https://www.knowaaglobal.com
+
+### Operating Hours
+- Standard Business Hours: Monday to Friday, 9:00 AM to 6:00 PM (Eastern Time)
+- Emergency escalation available 24/7 via +1 786-452-4140
+
+---
+
+## MARKET PRESENCE & SPECIALIZATION
+
+We specialize in the 4 and 5-star hotel segment, catering to a clientele that demands quality, reliability, and exclusivity.
+
+### Geographic Focus
+- **Primary Markets**: North America, with dominant market share and expertise in Miami, Florida, and New York City
+- **Secondary Markets**: Actively expanding into additional destinations, driven by data-backed opportunities and partner demand
+
+### Portfolio
+- **Direct Contracted Properties**: 762+ hotels and resorts with direct agreements
+- **Property Classification**: Exclusively 4-star and 5-star accommodations
+- **Geographic Concentration**: Focused depth in North American markets, particularly Miami/South Florida and New York City
+- **Inventory Strategy**: Quality over quantity — curated selection of premium properties with competitive rate parity
+
+---
+
+## CORE SERVICES
+
+### 1. Luxury Hotel Program
+- Exclusive rates and allotments at premium properties
+- Private buyouts and villa access for groups and special events
+- VIP amenities for clients staying at partner properties
+- From boutique hotels in Miami Beach to luxury resorts in the Bahamas
+- Accommodations are thoughtfully selected sanctuaries aligned with partner brand standards
+- Ideal combination of comfort, character, and distinction
+
+### 2. Premium Experience Network
+- Yacht charters and beach clubs
+- Hard-to-book restaurants and exclusive dining experiences
+- Private cultural events and guided tours
+- Sunset yacht cruises
+- Private beach club access
+- Reservation-only restaurants
+- Local cultural events that most visitors never discover
+
+### 3. Concierge Operations Support
+- 24/7 multilingual assistance in 14 languages
+- Real-time itinerary management and adjustments
+- Crisis response team for emergency situations
+- Last-minute dining reservations
+- Transportation and transfer coordination
+- Seamless communication and cultural understanding
+
+### Additional Services (In Development)
+- Airport transfers and ground transportation (planned)
+- Ancillary services and experiences (planned)
+- Dynamic packaging capabilities (roadmap item)
+
+---
+
+## STRATEGIC VALUE PROPOSITION
+
+### Competitive Differentiation
+- **Commercial Agility**: Highly competitive pricing structures specifically designed to support the margins of small and independent agencies
+- **Tech-First DNA**: Advanced automation, seamless API integrations, and sophisticated data analytics for real-time pricing adjustments and efficient inventory management
+- **Direct Contracting**: Portfolio built on direct relationships with hotels, bypassing intermediaries for better rates, better availability, and direct accountability
+
+### What Makes KNOWAA Global Different
+
+**Carefully Selected Premium Accommodations**
+From boutique hotels in Miami Beach to luxury resorts in the Bahamas — thoughtfully selected sanctuaries that align with your brand's standards, offering comfort, character, and distinction.
+
+**24/7 Travel Assistance During Stay**
+Dedicated team available around the clock to address any requests or unexpected needs. From securing last-minute dining reservations to managing itinerary adjustments, we're always just a call away.
+
+**Multilingual Support in 14 Languages**
+Clear communication and cultural understanding in 14 languages, making every journey smooth and comfortable from planning to departure.
+
+**Personalized Attention**
+We invest time to understand unique travel preferences, styles, and dream experiences. We design bespoke itineraries that bring visions to life, ensuring every detail reflects care and quality.
+
+**Deep Local Expertise in Miami and the Bahamas**
+Our intimate knowledge goes beyond tourist hotspots. From Wynwood's vibrant streets to hidden Bahamas beaches, our team's personal connections and local insights ensure authentic experiences.
+
+**Access to Unique Experiences and Hidden Gems**
+Exclusive experiences: private beach clubs, reservation-only restaurants, sunset yacht cruises, and local cultural events that most visitors never discover.
+
+---
+
+## PRODUCT PORTFOLIO & CORE DESTINATIONS
+
+### Miami & South Florida (Core Market)
+Extensive inventory in 4-5 star properties across Miami Beach, Downtown Miami, Brickell, Coral Gables, and Fort Lauderdale. Peak demand occurs during the winter season (December-April), where our direct contracts provide crucial availability access during sold-out periods.
+
+**Key Neighborhoods & Areas:**
+- **South Beach**: Iconic beaches, Art Deco architecture, vibrant nightlife
+- **Wynwood**: Street art, galleries, trendy restaurants and bars
+- **Brickell**: Urban sophistication, luxury shopping, fine dining
+- **Coconut Grove**: Bohemian charm, waterfront dining, lush gardens
+- **Coral Gables**: Mediterranean-style architecture, upscale shopping
+- **Key Biscayne**: Secluded beaches, nature parks, resort living
+- **Miami Beach**: Beachfront hotels, ocean-view dining, water sports
+- **Design District**: Luxury fashion, contemporary art, upscale dining
+- **Fort Lauderdale**: Beach resorts, cruise port proximity, boating culture
+
+### New York City (Secondary Stronghold)
+Year-round high-demand market with rapidly expanding footprint and direct relationships. Coverage includes Manhattan, Brooklyn, and major business districts.
+
+### Bahamas
+Seamless island getaways coordinated from Miami. Hidden beaches, exclusive island resorts, yacht charter island-hopping experiences combining the best of Miami and the Bahamas.
+
+### Seasonal Considerations
+- **Peak Winter Season (Miami/South Florida)**: December through April — advance booking recommended
+- **Year-Round Demand (NYC)**: Consistent demand with spikes during major events and conferences
+- **Forecast Planning**: Partners sharing group requirements or peak-date needs receive priority inventory allocation
+
+---
+
+## TECHNOLOGY PLATFORM & INTEGRATION
+
+### Booking Engine Features
+- Real-Time Availability: Live inventory updates and instant confirmations
+- Dynamic Pricing: Advanced algorithms for competitive rate optimization
+- Multi-Currency Support: Pricing in major currencies with competitive exchange rates
+- Mobile-Responsive Platform: Full functionality across desktop and mobile devices
+
+### API & Technical Integration
+- RESTful API architecture with JSON response format
+- Real-time availability and booking API
+- Comprehensive API documentation and sandbox environment
+- Dedicated technical support via partnerships@knowaaglobal.com
+- White-label booking engine options (available upon request)
+
+### Data & Analytics
+Partners gain access to advanced reporting dashboards featuring booking analytics, performance metrics, and market intelligence to optimize sales strategies.
+
+---
+
+## BOOKING POLICIES & SERVICE STANDARDS
+
+### Reservation Requirements
+- **Minimum Lead Time**: Seven (7) days prior to check-in (standard policy)
+- **Instant Confirmation**: Most bookings confirmed within minutes
+- **Booking Modifications**: Changes handled via email to support@knowaaglobal.com
+
+### Cancellation Policies
+Cancellation terms vary by property and rate type. All policies are clearly disclosed at the time of booking. We work with hotel partners to offer flexible cancellation options wherever possible.
+
+### Service Level Commitments
+- Response to inquiries within business hours (Eastern Time)
+- Emergency escalation path available 24/7 via +1 786-452-4140
+- Dedicated account management for high-volume partners
+
+---
+
+## PARTNERSHIP PROGRAM
+
+### Overview
+Transform your Miami and Bahamas offerings with privileged access to premium experiences and expert local support.
+
+### Partnership Benefits
+- Guaranteed allocations at luxury hotels
+- Pre-negotiated rates at exclusive venues
+- Priority access to high-demand experiences
+
+### Seamless Integration
+- User-friendly partner portal
+- Compatible with major booking systems
+- White-label solutions available
+
+### Revenue Growth
+- Competitive commission structure
+- Volume-based incentives
+- Upsell opportunities on premium experiences
+
+### Local Expert Support
+- 24/7 multilingual assistance
+- Dedicated account manager for each partner
+- Real-time booking management
+
+### Partnership Best Practices
+- **Booking Lead Times**: Minimum 7 days prior to check-in for optimal service
+- **Communication**: Email for all modifications and changes (documented audit trail)
+- **Technical Inquiries**: partnerships@knowaaglobal.com
+- **Operational Support**: support@knowaaglobal.com
+- **Collaborative Planning**: Share demand forecasts for peak dates for priority inventory allocation
+
+---
+
+## COMPANY HISTORY & GROWTH
+
+- **2022**: Knowaa Global founded with technology-first vision
+- **2022-2023**: Secured 762+ direct hotel contracts across North American markets
+- **2023-2024**: Established operational presence in Miami and New York City
+- **2024**: Expanded partner network to serve independent travel agencies nationwide
+- **2025-2026**: Ongoing expansion, platform enhancement, and ancillary services development
+
+### Future Roadmap
+- Expansion of direct hotel contracts in existing and new markets
+- Enhancement of mobile platform capabilities
+- Introduction of ancillary services (transfers, experiences)
+- Development of advanced partner tools and reporting features
+- Strategic partnerships with industry technology providers
