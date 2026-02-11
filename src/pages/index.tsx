@@ -41,10 +41,10 @@ const updateChatbotMessage = (
 };
 
 const WELCOME_MESSAGES = [
-  "What luxury hotels do you offer in Miami?",
-  "Tell me about yacht charter experiences",
-  "How does the partnership program work?",
-  "What concierge services are available?",
+  "A client needs a last-minute hotel in Miami — how do I check availability?",
+  "How do I modify or cancel an existing booking?",
+  "My client has a complaint during their stay — what's the escalation process?",
+  "How do I search and book hotels through your platform?",
 ];
 
 export default function Home() {
