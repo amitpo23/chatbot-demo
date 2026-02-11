@@ -3,9 +3,8 @@ import { Pinecone } from "@pinecone-database/pinecone";
 import * as Ably from 'ably';
 import { CallbackManager } from "langchain/callbacks";
 import { LLMChain } from "langchain/chains";
-import { ChatOpenAI } from "langchain/chat_models";
-import { OpenAIEmbeddings } from 'langchain/embeddings';
-import { OpenAI } from "langchain/llms";
+import { ChatOpenAI } from "langchain/chat_models/openai";
+import { OpenAIEmbeddings } from 'langchain/embeddings/openai';
 import { PromptTemplate } from "langchain/prompts";
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { uuid } from 'uuidv4';
@@ -17,7 +16,7 @@ import { templates } from './templates';
 import { detectSkills, buildSkillContext } from '../../lib/skills';
 
 
-const llm = new OpenAI({});
+const llm = new ChatOpenAI({ modelName: "gpt-3.5-turbo", temperature: 0 });
 let pinecone: Pinecone | null = null
 
 const initPineconeClient = () => {

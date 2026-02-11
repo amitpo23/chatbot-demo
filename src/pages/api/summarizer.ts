@@ -1,10 +1,11 @@
-import { OpenAI } from "langchain/llms";
+import { ChatOpenAI } from "langchain/chat_models/openai";
 import { templates } from './templates'
-import { LLMChain, PromptTemplate } from "langchain";
+import { LLMChain } from "langchain/chains";
+import { PromptTemplate } from "langchain/prompts";
 import Bottleneck from "bottleneck";
 import { StructuredOutputParser } from "langchain/output_parsers";
 
-const llm = new OpenAI({ concurrency: 10, temperature: 0, modelName: "gpt-3.5-turbo" });
+const llm = new ChatOpenAI({ temperature: 0, modelName: "gpt-3.5-turbo" });
 
 const { summarizerTemplate, summarizerDocumentTemplate } = templates;
 
