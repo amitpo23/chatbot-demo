@@ -1,4 +1,4 @@
-import { PineconeClient, ScoredVector } from "@pinecone-database/pinecone";
+import type { Pinecone } from "@pinecone-database/pinecone";
 
 export type Metadata = {
   url: string,
@@ -6,28 +6,25 @@ export type Metadata = {
   chunk: string,
 }
 
-const getMatchesFromEmbeddings = async (embeddings: number[], pinecone: PineconeClient, topK: number): Promise<ScoredVector[]> => {
+const getMatchesFromEmbeddings = async (embeddings: number[], pinecone: Pinecone, topK: number) => {
   if (!process.env.PINECONE_INDEX_NAME) {
-    throw (new Error("PINECONE_INDEX_NAME is not set"))
+    throw new Error("PINECONE_INDEX_NAME is not set")
   }
 
-  const index = pinecone!.Index(process.env.PINECONE_INDEX_NAME);
-  const queryRequest = {
-    vector: embeddings,
-    topK,
-    includeMetadata: true
-  }
+  const index = pinecone.index(process.env.PINECONE_INDEX_NAME);
   try {
     const queryResult = await index.query({
-      queryRequest
+      vector: embeddings,
+      topK,
+      includeMetadata: true,
     })
     return queryResult.matches?.map(match => ({
       ...match,
-      metadata: match.metadata as Metadata
+      metadata: match.metadata as unknown as Metadata
     })) || []
   } catch (e) {
     console.log("Error querying embeddings: ", e)
-    throw (new Error(`Error querying embeddings: ${e}`,))
+    throw new Error(`Error querying embeddings: ${e}`)
   }
 }
 

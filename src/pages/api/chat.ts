@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { PineconeClient } from "@pinecone-database/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone";
 import * as Ably from 'ably';
 import { CallbackManager } from "langchain/callbacks";
 import { LLMChain } from "langchain/chains";
@@ -12,17 +12,16 @@ import { uuid } from 'uuidv4';
 import { summarizeLongDocument } from './summarizer';
 
 import { ConversationLog } from './conversationLog';
-import { Metadata, getMatchesFromEmbeddings } from './embeddings';
+import { Metadata, getMatchesFromEmbeddings } from './matches';
 import { templates } from './templates';
+import { detectSkills, buildSkillContext } from '../../lib/skills';
 
 
 const llm = new OpenAI({});
-let pinecone: PineconeClient | null = null
+let pinecone: Pinecone | null = null
 
-const initPineconeClient = async () => {
-  pinecone = new PineconeClient();
-  await pinecone.init({
-    environment: process.env.PINECONE_ENVIRONMENT!,
+const initPineconeClient = () => {
+  pinecone = new Pinecone({
     apiKey: process.env.PINECONE_API_KEY!,
   });
 }
@@ -31,7 +30,7 @@ const ably = new Ably.Realtime({ key: process.env.ABLY_API_KEY });
 
 const handleRequest = async ({ prompt, userId }: { prompt: string, userId: string }) => {
   if (!pinecone) {
-    await initPineconeClient();
+    initPineconeClient();
   }
 
   let summarizedCount = 0;
@@ -100,8 +99,17 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
     ).map(([_, text]) => text);
 
 
+    // Detect active skills based on the user's prompt
+    const activeSkills = detectSkills(prompt);
+    const skillContext = buildSkillContext(activeSkills);
+
+    const enhancedTemplate = templates.qaTemplate.replace(
+      "CONTEXT: {summaries}",
+      `${skillContext}\nCONTEXT: {summaries}`
+    );
+
     const promptTemplate = new PromptTemplate({
-      template: templates.qaTemplate,
+      template: enhancedTemplate,
       inputVariables: ["summaries", "question", "conversationHistory", "urls"],
     });
 

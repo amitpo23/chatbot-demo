@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { PineconeClient, Vector } from "@pinecone-database/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone";
 import { Crawler, Page } from '../../crawler'
 import { Document } from "langchain/document";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
@@ -12,13 +12,10 @@ const limiter = new Bottleneck({
   minTime: 50
 });
 
-let pinecone: PineconeClient | null = null
+let pinecone: Pinecone | null = null
 
-const initPineconeClient = async () => {
-  pinecone = new PineconeClient();
-  console.log("init pinecone")
-  await pinecone.init({
-    environment: process.env.PINECONE_ENVIRONMENT!,
+const initPineconeClient = () => {
+  pinecone = new Pinecone({
     apiKey: process.env.PINECONE_API_KEY!,
   });
 }
@@ -27,16 +24,15 @@ type Response = {
   message: string
 }
 
+type PineconeVector = { id: string; values: number[]; metadata: Record<string, string> };
 
-// The TextEncoder instance enc is created and its encode() method is called on the input string.
-// The resulting Uint8Array is then sliced, and the TextDecoder instance decodes the sliced array in a single line of code.
 const truncateStringByBytes = (str: string, bytes: number) => {
   const enc = new TextEncoder();
   return new TextDecoder("utf-8").decode(enc.encode(str).slice(0, bytes));
 };
 
 
-const sliceIntoChunks = (arr: Vector[], chunkSize: number) => {
+const sliceIntoChunks = (arr: PineconeVector[], chunkSize: number) => {
   return Array.from({ length: Math.ceil(arr.length / chunkSize) }, (_, i) =>
     arr.slice(i * chunkSize, (i + 1) * chunkSize)
   );
@@ -60,15 +56,20 @@ export default async function handler(
   const shouldSummarize = summmarize === "true"
 
   if (!pinecone) {
-    await initPineconeClient();
+    initPineconeClient();
   }
 
-  const indexes = pinecone && await pinecone.listIndexes();
-  if (!indexes?.includes(pineconeIndexName)) {
-    res.status(500).json({
-      message: `Index ${pineconeIndexName} does not exist`
-    })
-    throw new Error(`Index ${pineconeIndexName} does not exist`)
+  try {
+    const indexList = pinecone && await pinecone.listIndexes();
+    const indexNames = indexList?.indexes?.map(idx => idx.name) || [];
+    if (!indexNames.includes(pineconeIndexName)) {
+      res.status(500).json({
+        message: `Index ${pineconeIndexName} does not exist`
+      })
+      return
+    }
+  } catch (e) {
+    console.error("Error listing indexes:", e);
   }
 
   const crawler = new Crawler(urls, crawlLimit, 200)
@@ -92,7 +93,7 @@ export default async function handler(
 
 
 
-  const index = pinecone && pinecone.Index(pineconeIndexName);
+  const index = pinecone && pinecone.index(pineconeIndexName);
 
   const embedder = new OpenAIEmbeddings({
     modelName: "text-embedding-ada-002"
@@ -114,28 +115,23 @@ export default async function handler(
         text: doc.metadata.text as string,
         url: doc.metadata.url as string,
       }
-    } as Vector
+    } as PineconeVector
   }
   const rateLimitedGetEmbedding = limiter.wrap(getEmbedding);
   process.stdout.write("100%\r")
   console.log("done embedding");
 
-  let vectors = [] as Vector[]
+  let vectors = [] as PineconeVector[]
 
   try {
-    vectors = await Promise.all(documents.flat().map((doc) => rateLimitedGetEmbedding(doc))) as unknown as Vector[]
+    vectors = await Promise.all(documents.flat().map((doc) => rateLimitedGetEmbedding(doc))) as unknown as PineconeVector[]
     const chunks = sliceIntoChunks(vectors, 10)
     console.log(chunks.length)
 
 
     try {
       await Promise.all(chunks.map(async chunk => {
-        await index!.upsert({
-          upsertRequest: {
-            vectors: chunk as Vector[],
-            namespace: ""
-          }
-        })
+        await index!.upsert({ records: chunk })
       }))
 
       res.status(200).json({ message: "Done" })
