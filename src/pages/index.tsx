@@ -133,7 +133,15 @@ export default function Home() {
         {/* Header */}
         <header style={st.header}>
           <div style={st.headerInner}>
-            <div style={st.logoRow}>
+            <div
+              style={st.logoRow}
+              onClick={() => {
+                setConversation([]);
+                setBotIsTyping(false);
+                setStatusMessage("");
+                setText("");
+              }}
+            >
               <img src="/knowaa-logo.png" alt="KNOWAA Global" style={st.logoImg} />
             </div>
             <div style={st.headerRight}>
@@ -372,7 +380,7 @@ const st: Record<string, React.CSSProperties> = {
     alignItems: "center",
     justifyContent: "space-between",
   },
-  logoRow: { display: "flex", alignItems: "center", gap: 12 },
+  logoRow: { display: "flex", alignItems: "center", gap: 12, cursor: "pointer" },
   logoImg: {
     height: 40,
     width: "auto",
