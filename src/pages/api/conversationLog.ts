@@ -1,7 +1,9 @@
 import * as pg from 'pg';
 import { Sequelize } from 'sequelize-cockroachdb';
 
-const sequelize = new Sequelize(process.env.DATABASE_URL!, { logging: false, dialectModule: pg });
+const sequelize = process.env.DATABASE_URL
+  ? new Sequelize(process.env.DATABASE_URL, { logging: false, dialectModule: pg })
+  : null;
 
 type ConversationLogEntry = {
   entry: string,
@@ -17,6 +19,7 @@ class ConversationLog {
   }
 
   public async addEntry({ entry, speaker }: { entry: string, speaker: string }) {
+    if (!sequelize) return;
     try {
       await sequelize.query(`INSERT INTO conversations (user_id, entry, speaker) VALUES (?, ?, ?) ON CONFLICT (created_at) DO NOTHING`, {
         replacements: [this.userId, entry, speaker],
@@ -27,16 +30,27 @@ class ConversationLog {
   }
 
   public async getConversation({ limit }: { limit: number }): Promise<string[]> {
-    const conversation = await sequelize.query(`SELECT entry, speaker, created_at FROM conversations WHERE user_id = '${this.userId}' ORDER By created_at DESC LIMIT ${limit}`);
-    const history = conversation[0] as ConversationLogEntry[]
+    if (!sequelize) return [];
+    try {
+      const conversation = await sequelize.query(`SELECT entry, speaker, created_at FROM conversations WHERE user_id = '${this.userId}' ORDER By created_at DESC LIMIT ${limit}`);
+      const history = conversation[0] as ConversationLogEntry[]
 
-    return history.map((entry) => {
-      return `${entry.speaker.toUpperCase()}: ${entry.entry}`
-    }).reverse()
+      return history.map((entry) => {
+        return `${entry.speaker.toUpperCase()}: ${entry.entry}`
+      }).reverse()
+    } catch (e) {
+      console.log(`Error getting conversation: ${e}`)
+      return []
+    }
   }
 
   public async clearConversation() {
-    await sequelize.query(`DELETE FROM conversations WHERE user_id = '${this.userId}'`);
+    if (!sequelize) return;
+    try {
+      await sequelize.query(`DELETE FROM conversations WHERE user_id = '${this.userId}'`);
+    } catch (e) {
+      console.log(`Error clearing conversation: ${e}`)
+    }
   }
 }
 
