@@ -9,12 +9,10 @@ const clientId =
   Math.random().toString(36).substring(2, 15) +
   Math.random().toString(36).substring(2, 15);
 
-if (typeof window !== "undefined") {
-  configureAbly({
-    authUrl: `${prefix}/api/createTokenRequest?clientId=${clientId}`,
-    clientId: clientId,
-  });
-}
+configureAbly({
+  authUrl: `${prefix}/api/createTokenRequest?clientId=${clientId}`,
+  clientId: clientId,
+});
 
 const fpjsPublicApiKey = process.env.FINGERPRINT as string;
 
