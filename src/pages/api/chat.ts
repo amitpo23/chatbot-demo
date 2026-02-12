@@ -33,6 +33,7 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
   }
 
   let summarizedCount = 0;
+  let flushTimer: ReturnType<typeof setInterval> | null = null;
 
   try {
     const channel = ably.channels.get(userId);
@@ -113,28 +114,49 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
     });
 
 
+    // Token batching to stay under Ably's 50 msg/sec rate limit
+    let tokenBuffer = "";
+    const FLUSH_INTERVAL_MS = 50; // Flush every 50ms = max 20 publishes/sec
+
+    const flushTokenBuffer = () => {
+      if (tokenBuffer.length > 0) {
+        const batch = tokenBuffer;
+        tokenBuffer = "";
+        channel.publish({
+          data: {
+            event: "response",
+            token: batch,
+            interactionId
+          }
+        });
+      }
+    };
+
+    // Start periodic flushing
+    flushTimer = setInterval(flushTokenBuffer, FLUSH_INTERVAL_MS);
+
     const chat = new ChatOpenAI({
       streaming: true,
       verbose: true,
       modelName: "gpt-3.5-turbo",
       callbackManager: CallbackManager.fromHandlers({
         async handleLLMNewToken(token) {
-          channel.publish({
-            data: {
-              event: "response",
-              token: token,
-              interactionId
-            }
-          })
+          tokenBuffer += token;
         },
-        async handleLLMEnd(result) {
+        async handleLLMEnd() {
+          // Final flush of any remaining tokens
+          if (flushTimer) {
+            clearInterval(flushTimer);
+            flushTimer = null;
+          }
+          flushTokenBuffer();
           channel.publish({
             data: {
               event: "responseEnd",
               token: "END",
               interactionId
             }
-          })
+          });
         }
       }),
     });
@@ -166,6 +188,10 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
 
 
   } catch (error) {
+    if (flushTimer) {
+      clearInterval(flushTimer);
+      flushTimer = null;
+    }
     //@ts-ignore
     console.error(error)
   }
