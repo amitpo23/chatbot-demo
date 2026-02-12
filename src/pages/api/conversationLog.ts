@@ -32,7 +32,9 @@ class ConversationLog {
   public async getConversation({ limit }: { limit: number }): Promise<string[]> {
     if (!sequelize) return [];
     try {
-      const conversation = await sequelize.query(`SELECT entry, speaker, created_at FROM conversations WHERE user_id = '${this.userId}' ORDER By created_at DESC LIMIT ${limit}`);
+      const conversation = await sequelize.query(`SELECT entry, speaker, created_at FROM conversations WHERE user_id = ? ORDER BY created_at DESC LIMIT ?`, {
+        replacements: [this.userId, limit],
+      });
       const history = conversation[0] as ConversationLogEntry[]
 
       return history.map((entry) => {
@@ -47,7 +49,9 @@ class ConversationLog {
   public async clearConversation() {
     if (!sequelize) return;
     try {
-      await sequelize.query(`DELETE FROM conversations WHERE user_id = '${this.userId}'`);
+      await sequelize.query(`DELETE FROM conversations WHERE user_id = ?`, {
+        replacements: [this.userId],
+      });
     } catch (e) {
       console.log(`Error clearing conversation: ${e}`)
     }

@@ -56,10 +56,6 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
 
     console.log(inquiry)
 
-
-    console.log(inquiry)
-
-
     // Embed the user's intent and query the Pinecone index
     const embedder = new OpenAIEmbeddings({
       modelName: "text-embedding-ada-002"
@@ -166,7 +162,7 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
       llm: chat,
     });
 
-    const allDocs = docs.join("\n")
+    const allDocs = (docs || []).join("\n")
     if (allDocs.length > 4000) {
       channel.publish({
         data: {
@@ -192,8 +188,19 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
       clearInterval(flushTimer);
       flushTimer = null;
     }
-    //@ts-ignore
-    console.error(error)
+    console.error("Chat error:", error)
+    // Notify the client so the UI can stop the typing indicator
+    try {
+      const channel = ably.channels.get(userId);
+      channel.publish({
+        data: {
+          event: "responseEnd",
+          token: "END",
+        }
+      });
+    } catch (_) {
+      // Best-effort notification
+    }
   }
 }
 
@@ -201,8 +208,16 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { body } = req;
-  const { prompt, userId } = body;
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const { prompt, userId } = req.body ?? {};
+
+  if (!prompt || typeof prompt !== "string" || !userId || typeof userId !== "string") {
+    return res.status(400).json({ error: "Missing prompt or userId" });
+  }
+
   await handleRequest({ prompt, userId })
   res.status(200).json({ "message": "started" })
 }

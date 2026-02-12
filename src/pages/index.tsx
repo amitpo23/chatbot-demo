@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import ReactMarkdown from "react-markdown";
 import { useChannel } from "@ably-labs/react-hooks";
 import { Types } from "ably";
@@ -55,9 +55,16 @@ export default function Home() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const userId =
-    "medici-web-" +
-    (typeof window !== "undefined" ? window.location.hostname : "local");
+  const userId = useMemo(() => {
+    if (typeof window === "undefined") return "ssr-placeholder";
+    const key = "knowaa-session-id";
+    let id = sessionStorage.getItem(key);
+    if (!id) {
+      id = "knowaa-" + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+      sessionStorage.setItem(key, id);
+    }
+    return id;
+  }, []);
 
   useChannel(userId, (message) => {
     switch (message.data.event) {
@@ -123,6 +130,8 @@ export default function Home() {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Roboto:wght@400;700&display=swap"
           rel="stylesheet"
@@ -134,12 +143,22 @@ export default function Home() {
         <header style={st.header}>
           <div style={st.headerInner}>
             <div
+              role="button"
+              tabIndex={0}
               style={st.logoRow}
               onClick={() => {
                 setConversation([]);
                 setBotIsTyping(false);
                 setStatusMessage("");
                 setText("");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  setConversation([]);
+                  setBotIsTyping(false);
+                  setStatusMessage("");
+                  setText("");
+                }
               }}
             >
               <img src="/knowaa-logo.png" alt="KNOWAA Global" style={st.logoImg} />
@@ -163,7 +182,9 @@ export default function Home() {
                     fill="none"
                     stroke="#7480e8"
                     strokeWidth="1.5"
+                    aria-labelledby="chat-icon-title"
                   >
+                    <title id="chat-icon-title">Chat</title>
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                   </svg>
                 </div>
@@ -287,7 +308,9 @@ export default function Home() {
                   fill="none"
                   stroke="white"
                   strokeWidth="2"
+                  aria-labelledby="send-icon-title"
                 >
+                  <title id="send-icon-title">Send message</title>
                   <line x1="22" y1="2" x2="11" y2="13" />
                   <polygon points="22 2 15 22 11 13 2 9 22 2" />
                 </svg>
