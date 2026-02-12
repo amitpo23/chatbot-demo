@@ -1,61 +1,150 @@
-import * as pg from 'pg';
-import { Sequelize } from 'sequelize-cockroachdb';
-
-const sequelize = process.env.DATABASE_URL
-  ? new Sequelize(process.env.DATABASE_URL, { logging: false, dialectModule: pg })
-  : null;
+import { supabase } from "../../lib/supabase";
 
 type ConversationLogEntry = {
-  entry: string,
-  created_at: Date,
-  speaker: string,
-}
+  content: string;
+  created_at: string;
+  speaker: string;
+};
 
 class ConversationLog {
+  private sessionId: string | null = null;
+
   constructor(
     public userId: string,
-  ) {
-    this.userId = userId
+    public source: string = "web",
+    public sourceMeta: Record<string, string> = {},
+  ) {}
+
+  /**
+   * Get or create a session for this userId + source combination.
+   * Web: one session per userId (userId is already per-tab-session).
+   * Slack: one session per (channel_id, thread_ts) pair.
+   */
+  private async getOrCreateSession(): Promise<string | null> {
+    if (this.sessionId) return this.sessionId;
+    if (!supabase) return null;
+
+    try {
+      if (this.source === "slack") {
+        const channelId = this.sourceMeta.channel_id || "";
+        const threadTs = this.sourceMeta.thread_ts || "";
+
+        const { data: existing } = await supabase
+          .from("knowaa_sessions")
+          .select("id")
+          .eq("source", "slack")
+          .contains("source_meta", { channel_id: channelId, thread_ts: threadTs })
+          .limit(1)
+          .single();
+
+        if (existing) {
+          this.sessionId = existing.id;
+          await supabase
+            .from("knowaa_sessions")
+            .update({ updated_at: new Date().toISOString() })
+            .eq("id", existing.id);
+          return this.sessionId;
+        }
+      } else {
+        const { data: existing } = await supabase
+          .from("knowaa_sessions")
+          .select("id")
+          .eq("user_id", this.userId)
+          .eq("source", this.source)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .single();
+
+        if (existing) {
+          this.sessionId = existing.id;
+          await supabase
+            .from("knowaa_sessions")
+            .update({ updated_at: new Date().toISOString() })
+            .eq("id", existing.id);
+          return this.sessionId;
+        }
+      }
+
+      // Create new session
+      const { data: newSession, error } = await supabase
+        .from("knowaa_sessions")
+        .insert({
+          user_id: this.userId,
+          source: this.source,
+          source_meta: this.sourceMeta,
+        })
+        .select("id")
+        .single();
+
+      if (error || !newSession) {
+        console.error("Error creating session:", error);
+        return null;
+      }
+
+      this.sessionId = newSession.id;
+      return this.sessionId;
+    } catch (e) {
+      console.error("Error in getOrCreateSession:", e);
+      return null;
+    }
   }
 
-  public async addEntry({ entry, speaker }: { entry: string, speaker: string }) {
-    if (!sequelize) return;
+  public async addEntry({ entry, speaker }: { entry: string; speaker: string }) {
+    if (!supabase) return;
     try {
-      await sequelize.query(`INSERT INTO conversations (user_id, entry, speaker) VALUES (?, ?, ?) ON CONFLICT (created_at) DO NOTHING`, {
-        replacements: [this.userId, entry, speaker],
+      const sessionId = await this.getOrCreateSession();
+      if (!sessionId) return;
+
+      await supabase.from("knowaa_messages").insert({
+        session_id: sessionId,
+        speaker,
+        content: entry,
       });
     } catch (e) {
-      console.log(`Error adding entry: ${e}`)
+      console.error(`Error adding entry: ${e}`);
     }
   }
 
   public async getConversation({ limit }: { limit: number }): Promise<string[]> {
-    if (!sequelize) return [];
+    if (!supabase) return [];
     try {
-      const conversation = await sequelize.query(`SELECT entry, speaker, created_at FROM conversations WHERE user_id = ? ORDER BY created_at DESC LIMIT ?`, {
-        replacements: [this.userId, limit],
-      });
-      const history = conversation[0] as ConversationLogEntry[]
+      const sessionId = await this.getOrCreateSession();
+      if (!sessionId) return [];
 
-      return history.map((entry) => {
-        return `${entry.speaker.toUpperCase()}: ${entry.entry}`
-      }).reverse()
+      const { data, error } = await supabase
+        .from("knowaa_messages")
+        .select("content, speaker, created_at")
+        .eq("session_id", sessionId)
+        .order("created_at", { ascending: false })
+        .limit(limit);
+
+      if (error || !data) return [];
+
+      return (data as ConversationLogEntry[])
+        .map((entry) => `${entry.speaker.toUpperCase()}: ${entry.content}`)
+        .reverse();
     } catch (e) {
-      console.log(`Error getting conversation: ${e}`)
-      return []
+      console.error(`Error getting conversation: ${e}`);
+      return [];
     }
   }
 
   public async clearConversation() {
-    if (!sequelize) return;
+    if (!supabase) return;
     try {
-      await sequelize.query(`DELETE FROM conversations WHERE user_id = ?`, {
-        replacements: [this.userId],
-      });
+      const { data: sessions } = await supabase
+        .from("knowaa_sessions")
+        .select("id")
+        .eq("user_id", this.userId);
+
+      if (sessions && sessions.length > 0) {
+        const sessionIds = sessions.map((s: { id: string }) => s.id);
+        await supabase.from("knowaa_sessions").delete().in("id", sessionIds);
+      }
     } catch (e) {
-      console.log(`Error clearing conversation: ${e}`)
+      console.error(`Error clearing conversation: ${e}`);
     }
   }
 }
 
-export { ConversationLog }
+export { ConversationLog };

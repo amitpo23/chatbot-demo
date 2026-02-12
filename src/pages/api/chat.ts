@@ -32,7 +32,7 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
     initPineconeClient();
   }
 
-  let summarizedCount = 0;
+  let fullResponse = "";
   let flushTimer: ReturnType<typeof setInterval> | null = null;
 
   try {
@@ -138,6 +138,7 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
       callbackManager: CallbackManager.fromHandlers({
         async handleLLMNewToken(token) {
           tokenBuffer += token;
+          fullResponse += token;
         },
         async handleLLMEnd() {
           // Final flush of any remaining tokens
@@ -153,6 +154,11 @@ const handleRequest = async ({ prompt, userId }: { prompt: string, userId: strin
               interactionId
             }
           });
+          // Save the AI response to the conversation log
+          if (fullResponse.trim()) {
+            conversationLog.addEntry({ entry: fullResponse.trim(), speaker: "ai" })
+              .catch((err) => console.error("Failed to save AI response:", err));
+          }
         }
       }),
     });

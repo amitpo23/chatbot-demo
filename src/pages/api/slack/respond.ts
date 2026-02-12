@@ -10,6 +10,7 @@ import { templates } from "../templates";
 import { summarizeLongDocument } from "../summarizer";
 import { detectSkills, buildSkillContext } from "../../../lib/skills";
 import { sendEscalationEmail } from "../../../lib/mailer";
+import { ConversationLog } from "../conversationLog";
 
 let pinecone: Pinecone | null = null;
 
@@ -48,10 +49,20 @@ export default async function handler(
   // Ack immediately so Slack doesn't timeout
   res.status(200).json({ ok: true });
 
+  // Log Slack conversations
+  const conversationLog = new ConversationLog(
+    user_id || "slack-anonymous",
+    "slack",
+    { channel_id, thread_ts: thread_ts || "" }
+  );
+
   try {
     if (!pinecone) {
       initPineconeClient();
     }
+
+    // Save user question
+    await conversationLog.addEntry({ entry: question, speaker: "user" });
 
     // Embed the question
     const embedder = new OpenAIEmbeddings({
@@ -98,6 +109,8 @@ export default async function handler(
         thread_ts,
         text: ESCALATION_MESSAGE,
       });
+      // Save escalation message
+      await conversationLog.addEntry({ entry: ESCALATION_MESSAGE, speaker: "ai" });
       // Send escalation email
       sendEscalationEmail({
         question,
@@ -147,6 +160,9 @@ export default async function handler(
     });
 
     const answer = result.text?.trim() || ESCALATION_MESSAGE;
+
+    // Save AI response
+    await conversationLog.addEntry({ entry: answer, speaker: "ai" });
 
     // Post the response back to Slack
     await slackClient.chat.postMessage({

@@ -1,85 +1,89 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import * as pg from "pg";
-import { Sequelize } from "sequelize-cockroachdb";
+import { supabase } from "../../lib/supabase";
 
 /**
- * Admin endpoint to view conversation history.
- * GET /api/conversations — list all conversations (grouped by user)
- * GET /api/conversations?userId=xxx — get conversation for specific user
- * DELETE /api/conversations?userId=xxx — clear conversation for specific user
+ * Admin endpoint to view conversation sessions and messages.
+ * GET /api/conversations — list all sessions with message counts
+ * GET /api/conversations?sessionId=xxx — get messages for a session
+ * DELETE /api/conversations?sessionId=xxx — delete a session
  */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (!process.env.DATABASE_URL) {
+  if (!supabase) {
     res.status(200).json({
       configured: false,
-      message: "DATABASE_URL not configured. Conversation history requires CockroachDB.",
-      conversations: [],
+      message: "Supabase not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY.",
+      sessions: [],
     });
     return;
   }
 
-  const sequelize = new Sequelize(process.env.DATABASE_URL, {
-    logging: false,
-    dialectModule: pg,
-  });
-
   try {
     if (req.method === "GET") {
-      const { userId } = req.query;
+      const { sessionId } = req.query;
 
-      if (userId) {
-        const result = await sequelize.query(
-          `SELECT entry, speaker, created_at FROM conversations WHERE user_id = $1 ORDER BY created_at DESC LIMIT 100`,
-          { bind: [userId] }
-        );
-        res.status(200).json({
-          configured: true,
-          userId,
-          messages: result[0],
-        });
+      if (sessionId) {
+        const { data: messages, error } = await supabase
+          .from("knowaa_messages")
+          .select("content, speaker, created_at")
+          .eq("session_id", sessionId as string)
+          .order("created_at", { ascending: true })
+          .limit(200);
+
+        if (error) {
+          res.status(500).json({ error: error.message });
+          return;
+        }
+
+        res.status(200).json({ configured: true, sessionId, messages: messages || [] });
         return;
       }
 
-      // List all unique users with their message counts and last activity
-      const result = await sequelize.query(
-        `SELECT user_id, COUNT(*) as message_count, MAX(created_at) as last_active
-         FROM conversations
-         GROUP BY user_id
-         ORDER BY last_active DESC
-         LIMIT 50`
-      );
+      // List all sessions via the summary view
+      const { data: sessions, error } = await supabase
+        .from("knowaa_session_summary")
+        .select("*")
+        .order("updated_at", { ascending: false })
+        .limit(50);
+
+      if (error) {
+        res.status(500).json({ error: error.message });
+        return;
+      }
+
       res.status(200).json({
         configured: true,
-        users: result[0],
+        sessions: sessions || [],
       });
       return;
     }
 
     if (req.method === "DELETE") {
-      const { userId } = req.query;
-      if (userId) {
-        await sequelize.query(
-          `DELETE FROM conversations WHERE user_id = $1`,
-          { bind: [userId] }
-        );
+      const { sessionId } = req.query;
+      if (sessionId) {
+        const { error } = await supabase
+          .from("knowaa_sessions")
+          .delete()
+          .eq("id", sessionId as string);
+
+        if (error) {
+          res.status(500).json({ error: error.message });
+          return;
+        }
+
         res.status(200).json({ success: true });
         return;
       }
-      res.status(400).json({ error: "userId required for delete" });
+      res.status(400).json({ error: "sessionId required for delete" });
       return;
     }
 
     res.status(405).json({ error: "Method not allowed" });
   } catch (error) {
-    res.status(200).json({
-      configured: false,
-      message: `Database error: ${error instanceof Error ? error.message : "Unknown error"}`,
-      conversations: [],
+    res.status(500).json({
+      error: `Database error: ${error instanceof Error ? error.message : "Unknown error"}`,
     });
-  } finally {
-    await sequelize.close();
   }
 }

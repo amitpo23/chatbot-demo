@@ -59,15 +59,23 @@ export default function AdminPage({ authorized }: AdminProps) {
   const [quickSource, setQuickSource] = useState("");
   const [quickStatus, setQuickStatus] = useState("");
 
-  // Conversations
-  const [convUsers, setConvUsers] = useState<
-    { user_id: string; message_count: number; last_active: string }[]
+  // Conversations (session-based)
+  const [sessions, setSessions] = useState<
+    {
+      id: string;
+      user_id: string;
+      source: string;
+      source_meta: Record<string, string>;
+      created_at: string;
+      updated_at: string;
+      message_count: number;
+    }[]
   >([]);
   const [convDbConfigured, setConvDbConfigured] = useState(true);
   const [convDbMessage, setConvDbMessage] = useState("");
-  const [selectedUserId, setSelectedUserId] = useState("");
+  const [selectedSessionId, setSelectedSessionId] = useState("");
   const [selectedMessages, setSelectedMessages] = useState<
-    { entry: string; speaker: string; created_at: string }[]
+    { content: string; speaker: string; created_at: string }[]
   >([]);
 
   // Active tab
@@ -99,19 +107,19 @@ export default function AdminPage({ authorized }: AdminProps) {
       const data = await res.json();
       setConvDbConfigured(data.configured !== false);
       setConvDbMessage(data.message || "");
-      setConvUsers(data.users || []);
+      setSessions(data.sessions || []);
     } catch {
       setConvDbConfigured(false);
       setConvDbMessage("Failed to fetch conversations");
-      setConvUsers([]);
+      setSessions([]);
     }
   }, []);
 
-  const fetchUserConversation = async (userId: string) => {
-    setSelectedUserId(userId);
+  const fetchSessionMessages = async (sessionId: string) => {
+    setSelectedSessionId(sessionId);
     try {
       const res = await fetch(
-        `/api/conversations?userId=${encodeURIComponent(userId)}`
+        `/api/conversations?sessionId=${encodeURIComponent(sessionId)}`
       );
       const data = await res.json();
       setSelectedMessages(data.messages || []);
@@ -120,13 +128,13 @@ export default function AdminPage({ authorized }: AdminProps) {
     }
   };
 
-  const clearUserConversation = async (userId: string) => {
-    if (!window.confirm(`Clear all messages for ${userId}?`)) return;
+  const clearSession = async (sessionId: string) => {
+    if (!window.confirm("Delete this session and all its messages?")) return;
     await fetch(
-      `/api/conversations?userId=${encodeURIComponent(userId)}`,
+      `/api/conversations?sessionId=${encodeURIComponent(sessionId)}`,
       { method: "DELETE" }
     );
-    setSelectedUserId("");
+    setSelectedSessionId("");
     setSelectedMessages([]);
     fetchConversations();
   };
@@ -301,7 +309,7 @@ export default function AdminPage({ authorized }: AdminProps) {
   const tabs = [
     { id: "knowledge", label: "Knowledge Base" },
     { id: "skills", label: `Skills (${skillsList.length})` },
-    { id: "conversations", label: `Conversations (${convUsers.length})` },
+    { id: "conversations", label: `Conversations (${sessions.length})` },
     { id: "test", label: "Test Chat" },
   ];
 
@@ -539,14 +547,14 @@ export default function AdminPage({ authorized }: AdminProps) {
             <section style={styles.section}>
               <h2 style={styles.sectionTitle}>Conversations</h2>
               <p style={styles.hint}>
-                {convDbMessage || "DATABASE_URL not configured. Set up CockroachDB to enable conversation history."}
+                {convDbMessage || "Supabase not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY."}
               </p>
             </section>
           ) : (
             <>
               <section style={styles.section}>
                 <div style={styles.statsRow}>
-                  <h2 style={styles.sectionTitle}>Chat Users</h2>
+                  <h2 style={styles.sectionTitle}>Chat Sessions</h2>
                   <button
                     type="button"
                     onClick={fetchConversations}
@@ -555,17 +563,17 @@ export default function AdminPage({ authorized }: AdminProps) {
                     Refresh
                   </button>
                 </div>
-                {convUsers.length === 0 ? (
+                {sessions.length === 0 ? (
                   <p style={styles.hint}>No conversations yet.</p>
                 ) : (
                   <div style={{ marginTop: "0.5rem" }}>
-                    {convUsers.map((user) => (
+                    {sessions.map((session) => (
                       <div
-                        key={user.user_id}
+                        key={session.id}
                         style={{
                           ...styles.convUserRow,
                           backgroundColor:
-                            selectedUserId === user.user_id
+                            selectedSessionId === session.id
                               ? "#eef0fc"
                               : "#fff",
                         }}
@@ -573,26 +581,38 @@ export default function AdminPage({ authorized }: AdminProps) {
                         <button
                           type="button"
                           onClick={() =>
-                            fetchUserConversation(user.user_id)
+                            fetchSessionMessages(session.id)
                           }
                           style={styles.convUserBtn}
                         >
-                          <strong>{user.user_id}</strong>
+                          <span style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                            <span style={{
+                              padding: "0.1rem 0.4rem",
+                              backgroundColor: session.source === "slack" ? "#4A154B" : "#7480e8",
+                              color: "white",
+                              borderRadius: 3,
+                              fontSize: "0.7rem",
+                              fontWeight: 600,
+                            }}>
+                              {session.source}
+                            </span>
+                            <strong style={{ fontSize: "0.85rem" }}>
+                              {session.user_id.length > 24
+                                ? session.user_id.substring(0, 24) + "..."
+                                : session.user_id}
+                            </strong>
+                          </span>
                           <span style={styles.convUserMeta}>
-                            {user.message_count} messages | Last:{" "}
-                            {new Date(
-                              user.last_active
-                            ).toLocaleString()}
+                            {session.message_count} messages | Last:{" "}
+                            {new Date(session.updated_at).toLocaleString()}
                           </span>
                         </button>
                         <button
                           type="button"
-                          onClick={() =>
-                            clearUserConversation(user.user_id)
-                          }
+                          onClick={() => clearSession(session.id)}
                           style={styles.buttonDanger}
                         >
-                          Clear
+                          Delete
                         </button>
                       </div>
                     ))}
@@ -600,16 +620,16 @@ export default function AdminPage({ authorized }: AdminProps) {
                 )}
               </section>
 
-              {selectedUserId && (
+              {selectedSessionId && (
                 <section style={styles.section}>
                   <h2 style={styles.sectionTitle}>
-                    Conversation: {selectedUserId}
+                    Session Messages
                   </h2>
                   {selectedMessages.length === 0 ? (
                     <p style={styles.hint}>No messages found.</p>
                   ) : (
                     <div style={styles.convMessages}>
-                      {[...selectedMessages].reverse().map((msg, i) => (
+                      {selectedMessages.map((msg, i) => (
                         <div
                           key={i}
                           style={
@@ -631,7 +651,7 @@ export default function AdminPage({ authorized }: AdminProps) {
                             </span>
                           </div>
                           <p style={{ margin: 0, whiteSpace: "pre-wrap" as const }}>
-                            {msg.entry}
+                            {msg.content}
                           </p>
                         </div>
                       ))}
