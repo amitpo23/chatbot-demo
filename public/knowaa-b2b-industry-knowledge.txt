@@ -1,0 +1,596 @@
+# KNOWAA Global — B2B Travel Industry Professional Knowledge Base
+# Comprehensive Guide for Travel Agent Partners
+# Version 1.0 | February 2026
+
+---
+
+## SECTION 1: B2B TRAVEL INDUSTRY FUNDAMENTALS
+
+### Key Industry Terminology
+- **GDS (Global Distribution System)**: Computer reservation systems used by travel agents to search and book travel inventory. Major GDS platforms include Amadeus, Sabre, and Travelport. KNOWAA Global provides direct API integration that complements GDS access.
+- **OTA (Online Travel Agency)**: Online platforms like Booking.com, Expedia that sell travel to consumers. As a B2B partner, you bypass OTA markups and access net rates directly through KNOWAA Global.
+- **Net Rate**: The wholesale price of a hotel room before markup. Travel agents add their margin on top. KNOWAA Global provides competitive net rates through direct hotel contracts.
+- **Rack Rate**: The standard published rate for a hotel room without any discounts. This is the highest rate a hotel charges.
+- **BAR (Best Available Rate)**: The lowest unrestricted rate available to the general public at any given time.
+- **Allotment**: A block of rooms reserved for a travel agency or tour operator at a negotiated rate. KNOWAA Global maintains guaranteed allotments at 762+ partner properties.
+- **FIT (Free Independent Traveler/Fully Independent Travel)**: Individual travelers not part of a group tour, booking customized itineraries. Most KNOWAA Global bookings are FIT.
+- **GIT (Group Inclusive Tour)**: Group travel packages typically for 10+ travelers with negotiated group rates.
+- **Release Date/Cut-off Date**: The deadline by which unsold allotment rooms are released back to the hotel for general sale.
+- **Markup**: The percentage or fixed amount a travel agent adds to the net rate to determine the selling price to clients.
+- **Commission**: The percentage of the booking value paid to the travel agent by the supplier. KNOWAA Global offers competitive commission structures.
+- **Dynamic Pricing**: Rate adjustment based on demand, season, events, and market conditions. KNOWAA Global uses advanced algorithms for real-time competitive pricing.
+- **Rate Parity**: The practice of maintaining consistent rates across distribution channels. KNOWAA Global ensures competitive rate parity through direct contracts.
+
+### Distribution Chain in B2B Travel
+The B2B travel distribution chain typically flows: Hotel → Wholesaler/Consolidator (KNOWAA Global) → Travel Agent → End Client. By working with KNOWAA Global, travel agents skip intermediaries and access rates closer to the source, maximizing their margins.
+
+### Types of Travel Agency Models
+- **Leisure Agencies**: Focus on vacation and holiday travel
+- **Corporate Agencies**: Specialize in business travel management
+- **MICE Agencies**: Handle Meetings, Incentives, Conferences, and Exhibitions
+- **Luxury/Specialty Agencies**: High-end, bespoke travel experiences (KNOWAA Global's primary partner profile)
+- **Online Agencies**: Digital-first agencies operating primarily through web platforms
+
+---
+
+## SECTION 2: HOTEL BOOKING LIFECYCLE — COMPLETE GUIDE
+
+### Step 1: Search & Availability
+How to search for hotels through KNOWAA Global:
+- Log into the KNOWAA Global partner portal at knowaaglobal.com
+- Enter destination, check-in/check-out dates, number of rooms, and guest count
+- Filter results by star rating, location, amenities, and price range
+- Our system shows real-time availability with live inventory updates
+- For API-integrated partners, use the RESTful API for programmatic searches
+- Results include net rates, cancellation policies, and room descriptions
+- For urgent requests or sold-out dates, contact support@knowaaglobal.com — we can check direct availability with hotel partners
+
+### Step 2: Rate Selection & Comparison
+Understanding rate types available through KNOWAA Global:
+- **Flexible Rate**: Higher price but allows free cancellation up to the deadline
+- **Non-Refundable Rate**: Lower price but no cancellation refund
+- **Early Bird Rate**: Discounted rate for bookings made well in advance (typically 30-90 days)
+- **Last-Minute Rate**: Special pricing for near-date availability
+- **Long Stay Rate**: Discounted rates for extended stays (typically 7+ nights)
+- **Package Rate**: Bundled pricing including room + experiences/transfers
+- Always review the cancellation policy before confirming the rate with your client
+- Compare the net rate against your selling price to ensure adequate margin
+
+### Step 3: Booking & Confirmation
+The booking process through KNOWAA Global:
+- Select your preferred room type and rate
+- Enter guest details: full name (as per ID/passport), contact information, special requests
+- Review the total cost, cancellation policy, and payment terms
+- Submit the booking — most reservations are confirmed instantly
+- You will receive a confirmation email with a unique booking reference number
+- Share the confirmation details with your client
+- For group bookings (10+ rooms), contact partnerships@knowaaglobal.com for dedicated group handling
+- Booking reference numbers should be saved and shared with clients for any future correspondence
+
+### Step 4: Pre-Arrival Management
+Between booking and check-in:
+- Special requests (early check-in, late check-out, room preferences) should be submitted at least 48 hours before arrival
+- Dietary requirements or accessibility needs should be communicated at time of booking
+- VIP amenities or special occasions (birthdays, anniversaries) — notify us at least 72 hours in advance
+- Transfer arrangements can be coordinated through KNOWAA Global concierge
+- Send your client a pre-arrival briefing with hotel address, check-in time, and local information
+
+### Step 5: Modification & Changes
+How to modify an existing booking:
+- Email support@knowaaglobal.com with your booking reference number and requested changes
+- Common modifications: date changes, room type upgrades, adding/removing nights, guest name changes
+- Date changes are subject to availability and may result in rate adjustments
+- Room upgrades are subject to availability and may have additional charges
+- Name changes should be requested as early as possible
+- All modification requests are documented via email for audit trail purposes
+- Urgent modifications during weekends/holidays: call +1 786-452-4140
+- Response time: within business hours (Monday-Friday, 9 AM - 6 PM ET)
+
+### Step 6: Cancellation Process
+How to cancel a booking:
+- Email support@knowaaglobal.com with booking reference and cancellation reason
+- Cancellation terms depend on the rate type and hotel policy:
+  - **Flexible rates**: Free cancellation up to the specified deadline (varies by property, typically 24-72 hours before check-in)
+  - **Non-refundable rates**: No refund upon cancellation
+  - **Partial cancellation**: Reducing room count in group bookings may be subject to specific terms
+- Cancellation confirmation will be sent via email with any applicable charges noted
+- For force majeure situations (natural disasters, pandemics, government restrictions), we work with hotel partners to find fair solutions
+- Always check the specific cancellation deadline before promising flexibility to your client
+- Late cancellations or no-shows typically incur a charge of the first night's room rate
+
+### Step 7: During the Stay — Guest Support
+Supporting your clients during their hotel stay:
+- If a guest has issues during their stay, contact KNOWAA Global immediately
+- Our 24/7 concierge team can intervene directly with the hotel on behalf of your client
+- Common during-stay requests: room changes, maintenance issues, additional services
+- Emergency situations: call +1 786-452-4140 immediately
+- We document all interactions for post-stay review and partner reporting
+- Multilingual support available in 14 languages for international guests
+
+### Step 8: Post-Stay & Follow-Up
+After the guest checks out:
+- Review the final invoice for accuracy (minibar, extra charges, etc.)
+- Address any post-stay complaints within 48 hours for best resolution
+- Request guest feedback to improve future bookings
+- Reconcile payments with your KNOWAA Global account statement
+- Use booking analytics in the partner portal to track performance
+
+---
+
+## SECTION 3: HANDLING COMMON PROBLEMS & CHALLENGES
+
+### Overbooking Situations
+What to do when a hotel is overbooked and your client is affected:
+1. Contact KNOWAA Global immediately at +1 786-452-4140
+2. We will intervene directly with the hotel property
+3. Standard hotel obligations during overbooking:
+   - Provide alternative accommodation of equal or higher standard
+   - Cover transportation to the alternative property
+   - Provide complimentary meals and communication access
+4. KNOWAA Global will follow up to ensure proper resolution
+5. Document everything for potential compensation claims
+6. We maintain escalation relationships with hotel management to prioritize our partner's guests
+
+### Rate Discrepancies
+If the charged rate differs from the booked rate:
+1. Compare the booking confirmation against the invoice
+2. Email support@knowaaglobal.com with both documents attached
+3. Include the booking reference number and specific discrepancy details
+4. We investigate directly with the hotel's revenue management team
+5. Resolution typically within 2-3 business days
+6. Adjustments are applied to your next settlement statement
+
+### No-Show Management
+When a guest doesn't arrive at the hotel:
+- Hotels typically charge one night's room rate for no-shows
+- To avoid no-show charges: cancel the booking before the cancellation deadline
+- If the guest was delayed (flight issues, emergencies), contact us immediately — we can often negotiate with the hotel
+- For no-shows due to documented emergencies, we work with hotels to waive or reduce charges
+- Always confirm your client's travel plans 24-48 hours before check-in
+
+### Guest Complaints During Stay
+Escalation process for guest complaints:
+- **Level 1 — Direct Resolution**: Guest contacts hotel front desk. Most issues (towels, minibar, AC) resolved within 30 minutes.
+- **Level 2 — KNOWAA Support**: If hotel doesn't resolve, contact support@knowaaglobal.com or call +1 786-452-4140. We contact hotel management directly.
+- **Level 3 — Account Manager Escalation**: For persistent issues or VIP guests, your dedicated account manager intervenes with senior hotel leadership.
+- **Level 4 — Emergency Relocation**: In extreme cases (health/safety, unacceptable conditions), we arrange immediate alternative accommodation.
+- Document all complaints with dates, times, names, and photos if applicable.
+- Post-stay compensation (room credit, discount on future booking) can be negotiated through KNOWAA Global.
+
+### Late Check-In / Early Check-Out
+- Late check-in: Inform the hotel via KNOWAA Global support to hold the reservation
+- Early check-out: Depending on rate type, may result in early departure charges
+- Guaranteed late check-in can be requested at booking time
+- Early check-out policies vary by hotel — always verify before promising to clients
+
+---
+
+## SECTION 4: PAYMENT, BILLING & FINANCIAL PROCESSES
+
+### Payment Methods Accepted by KNOWAA Global
+- Bank wire transfer (preferred for volume partners)
+- Credit card (Visa, Mastercard, American Express)
+- Virtual credit cards (VCC) for individual bookings
+- Net 30 payment terms available for qualified partners (credit application required)
+
+### Billing & Settlement Process
+- Invoices are generated per booking or consolidated monthly (based on partner agreement)
+- Statements include: booking reference, guest name, dates, net rate, applicable taxes
+- Payment due dates are clearly indicated on each invoice
+- Late payment may result in temporary account suspension
+- Currency: Primary billing in USD; EUR and GBP available upon request
+- All rates quoted are exclusive of local taxes unless otherwise stated
+
+### Commission Structure
+- Standard commission rates are agreed upon during partner onboarding
+- Volume-based incentive tiers: higher booking volumes unlock improved commission rates
+- Commission is calculated on the net booking value
+- Commission statements are available in the partner portal
+- Special promotional commissions may be offered during campaigns
+
+### Reconciliation & Disputes
+- Monthly reconciliation reports available through the partner portal
+- Discrepancies should be reported within 30 days of invoice date
+- Disputed amounts can be flagged via email to support@knowaaglobal.com
+- Resolution process: investigation → documentation → adjustment → confirmation
+- Credit notes are issued for resolved disputes and applied to future payments
+
+### Taxes & Regulatory Charges
+- Local hotel taxes (resort fees, city taxes, tourism levies) vary by destination
+- Miami-Dade County: Tourist Development Tax applies to all hotel stays
+- Bahamas: VAT (Value Added Tax) applies at current government rate
+- Tax amounts are disclosed at time of booking
+- Partners are responsible for applicable taxes in their jurisdiction
+
+---
+
+## SECTION 5: MIAMI & SOUTH FLORIDA — DESTINATION EXPERTISE
+
+### Miami Seasonal Guide
+- **High Season (December-April)**: Peak demand, highest rates, advance booking essential. Major events: Art Basel (December), Miami Music Week (March), Ultra Music Festival (March). Average temperature: 75-82°F (24-28°C).
+- **Shoulder Season (May-June, November)**: Moderate demand, good value. Pleasant weather, fewer crowds.
+- **Low Season (July-October)**: Hurricane season, lowest rates, some hotels offer significant discounts. Higher humidity, afternoon thunderstorms common. Hurricane preparedness is important.
+- **Year-Round Events**: Formula 1 Miami Grand Prix (May), Miami Open Tennis (March), Miami Boat Show (February), Art Deco Weekend (January).
+
+### Miami Hotel Districts Guide
+- **South Beach (SoBe)**: Art Deco boutique hotels and large beachfront resorts. Walking distance to Ocean Drive, Lincoln Road. Best for: couples, nightlife, beach lovers. Price range: $200-$1,500/night.
+- **Mid-Beach**: Upscale resorts, quieter than South Beach. Faena District, luxury properties. Best for: families, luxury seekers. Price range: $300-$2,000/night.
+- **Bal Harbour**: Ultra-luxury, exclusive shopping, pristine beach. Best for: high-end clients, shopping enthusiasts. Price range: $400-$3,000/night.
+- **Downtown/Brickell**: Business district, modern high-rises, vibrant dining scene. Best for: business travelers, urban explorers. Price range: $150-$600/night.
+- **Coconut Grove**: Relaxed waterfront setting, boutique properties. Best for: families, nature lovers. Price range: $200-$500/night.
+- **Coral Gables**: Historic elegance, The Biltmore, upscale residential feel. Best for: golfers, culture enthusiasts. Price range: $200-$800/night.
+- **Key Biscayne**: Island resort setting, secluded beaches. Best for: beach families, tennis enthusiasts. Price range: $300-$1,000/night.
+- **Wynwood/Design District**: Trendy, art-focused, emerging hotel market. Best for: millennials, art lovers, foodies. Price range: $150-$400/night.
+- **Fort Lauderdale**: Beachfront resorts, cruise port proximity, yachting capital. Best for: cruise pre/post stays, boating enthusiasts. Price range: $150-$800/night.
+
+### Miami Transportation Guide
+- **Miami International Airport (MIA)**: Main international gateway, 20-40 min to Miami Beach depending on traffic.
+- **Fort Lauderdale-Hollywood International (FLL)**: Alternative airport, often cheaper flights, 45-60 min to Miami Beach.
+- **Ground Transportation**: Uber/Lyft widely available, private transfers recommended for VIP clients, water taxis in Fort Lauderdale.
+- **Parking**: Hotel valet typically $40-$75/day in Miami Beach. Street parking limited. Rental car recommended only if exploring beyond Miami Beach.
+
+### Miami Dining & Experiences
+- **Michelin-Recognized**: Miami's dining scene has grown significantly, with numerous acclaimed restaurants.
+- **Celebrity Chef Restaurants**: Multiple locations in South Beach, Brickell, and Design District.
+- **Cuban Cuisine**: Authentic experiences in Little Havana, Calle Ocho.
+- **Seafood**: Joe's Stone Crab (seasonal October-May), Garcia's Seafood, various waterfront options.
+- **Nightlife**: LIV at Fontainebleau, E11EVEN, Basement at the Edition — table reservations essential.
+- KNOWAA Global can arrange exclusive dining reservations and VIP nightlife access through our Premium Experience Network.
+
+---
+
+## SECTION 6: BAHAMAS — DESTINATION EXPERTISE
+
+### Bahamas Overview
+- **Location**: Atlantic Ocean archipelago, 50 miles east of Florida, 700+ islands
+- **Main Tourist Islands**: New Providence (Nassau/Paradise Island), Grand Bahama (Freeport), Exumas, Eleuthera/Harbour Island, Abaco
+- **Currency**: Bahamian Dollar (BSD), pegged 1:1 with USD. US dollars widely accepted.
+- **Language**: English
+- **Entry Requirements**: Valid passport required. US citizens no visa needed for stays up to 90 days.
+- **Time Zone**: Eastern Standard Time (same as Miami)
+- **Getting There from Miami**: Direct flights from MIA (45-60 min), ferry services available, private charters and yacht crossings
+
+### Bahamas Seasonal Guide
+- **High Season (December-April)**: Best weather, highest demand. Average temperature: 75-82°F. Book 60-90 days in advance.
+- **Shoulder Season (May-June, November)**: Good weather, fewer crowds, better rates.
+- **Hurricane Season (June-November)**: Lower rates, risk of tropical weather. Travel insurance strongly recommended.
+- **Spring Break (March)**: Nassau/Paradise Island sees significant demand from college travelers.
+- **Junkanoo Festival**: December 26 and January 1 — vibrant cultural celebration, hotels book quickly.
+
+### Bahamas Property Types
+- **Nassau/Paradise Island**: Large resorts (Atlantis, Baha Mar), casino properties, water parks. Best for families and groups.
+- **Exumas**: Ultra-exclusive private island resorts, swimming pigs experience. Best for luxury seekers, honeymooners.
+- **Harbour Island/Eleuthera**: Pink sand beaches, boutique luxury, intimate settings. Best for couples, romantic getaways.
+- **Grand Bahama**: Value-oriented, eco-tourism, diving. Best for adventure travelers, budget-conscious clients.
+- **Private Islands**: Exclusive resort islands with all-inclusive luxury. Ultimate privacy and exclusivity.
+- KNOWAA Global has direct contracts with premier Bahamas properties and can arrange seamless Miami-Bahamas combinations.
+
+### Bahamas Experiences
+- Swimming with nurse sharks at Compass Cay
+- The famous swimming pigs at Big Major Cay, Exumas
+- Thunderball Grotto snorkeling (James Bond filming location)
+- Dean's Blue Hole diving in Long Island
+- Pink sand beaches of Harbour Island
+- Island-hopping yacht charters arranged through KNOWAA Global
+- Deep-sea fishing charters
+- Cultural tours of downtown Nassau and historic forts
+
+---
+
+## SECTION 7: CUSTOMER SERVICE BEST PRACTICES FOR TRAVEL AGENTS
+
+### Communication Standards
+- Respond to client inquiries within 4 hours during business hours
+- Acknowledge all booking requests immediately, even if full confirmation is pending
+- Use professional, warm communication tone
+- Provide clear, detailed itineraries with all confirmation numbers
+- Send pre-departure packages 7-14 days before travel
+- Follow up within 48 hours after the client's return
+
+### Setting Client Expectations
+- Always confirm exact cancellation deadlines and share them in writing
+- Disclose all fees, taxes, and potential surcharges upfront
+- Explain rate conditions (refundable vs. non-refundable) clearly
+- Set realistic expectations about room views, locations, and amenities
+- Inform clients about local customs, tipping practices, and dress codes
+- Provide emergency contact numbers (yours and KNOWAA Global's)
+
+### Building Client Loyalty
+- Remember client preferences and reference them in future bookings
+- Proactively suggest upgrades and special touches for repeat clients
+- Share destination expertise and insider tips
+- Offer flexible payment plans when possible
+- Send personalized travel recommendations based on past preferences
+- Create value through curated experiences, not just room bookings
+
+### Handling Difficult Situations
+- Listen actively and empathize with the client's frustration
+- Never blame the hotel or supplier in front of the client — work the issue internally
+- Offer solutions, not excuses
+- Document everything in writing
+- Escalate through KNOWAA Global when direct resolution isn't possible
+- Follow up after resolution to ensure client satisfaction
+- Turn complaints into opportunities to demonstrate exceptional service
+
+### Upselling & Cross-Selling
+- Suggest room upgrades (ocean view, suite, club level) — clients often appreciate the enhanced experience
+- Recommend KNOWAA Global's Premium Experience Network: yacht charters, exclusive dining, beach club access
+- Offer pre/post stay extensions, especially for destination weddings and events
+- Suggest travel insurance for all international bookings
+- Package multiple services (hotel + transfer + experience) for better value and convenience
+
+---
+
+## SECTION 8: TRAVEL INSURANCE & DUTY OF CARE
+
+### Travel Insurance Recommendations
+- Strongly recommend travel insurance for all bookings, especially:
+  - International travel
+  - Non-refundable rate bookings
+  - Hurricane season travel to Miami/Bahamas
+  - High-value bookings
+  - Clients with medical conditions
+- Standard coverage should include: trip cancellation, medical expenses, baggage loss, travel delay
+- KNOWAA Global can recommend insurance partners upon request
+
+### Duty of Care for Travel Agents
+- Travel agents have a responsibility to inform clients about:
+  - Destination safety and travel advisories
+  - Required travel documents (passports, visas)
+  - Vaccination and health requirements
+  - Travel insurance options
+  - Cancellation and refund policies
+- Stay updated on government travel advisories for Miami and Bahamas
+- Have emergency protocols in place for natural disasters, medical emergencies, or security incidents
+- KNOWAA Global's 24/7 emergency line (+1 786-452-4140) is available for crisis situations
+
+### Hurricane Season Protocol (June 1 - November 30)
+- Monitor weather forecasts and NOAA hurricane advisories
+- For bookings during hurricane season:
+  - Recommend flexible rate bookings
+  - Ensure clients have comprehensive travel insurance
+  - Provide emergency contact information
+  - Know the hotel's hurricane policy and evacuation procedures
+- If a hurricane warning is issued:
+  - Contact KNOWAA Global immediately for rebooking options
+  - Many hotels waive cancellation fees during official hurricane warnings
+  - Coordinate with clients about safety and alternative plans
+  - Document all communications for insurance claims if needed
+
+---
+
+## SECTION 9: GROUP BOOKINGS & MICE
+
+### Group Booking Process (10+ Rooms)
+1. Contact partnerships@knowaaglobal.com with group requirements
+2. Provide: destination, dates, number of rooms, budget range, special requirements
+3. KNOWAA Global will prepare a custom proposal within 48 hours
+4. Group rates are negotiated directly with hotels for best pricing
+5. Deposit and payment terms are agreed upon acceptance
+6. Room list (guest names) typically required 30 days before arrival
+7. Dedicated group coordinator assigned for the duration of the event
+
+### MICE Services (Meetings, Incentives, Conferences, Exhibitions)
+- Meeting room and conference facility sourcing
+- Audiovisual equipment coordination
+- Group dining arrangements
+- Team-building activity planning
+- Transportation logistics for groups
+- Welcome amenities and branded materials
+- Post-event feedback and reporting
+
+### Group Cancellation Policies
+- Group cancellations are subject to specific terms outlined in the group contract
+- Attrition clauses: partners may reduce room count by an agreed percentage without penalty
+- Full group cancellations may incur sliding-scale penalties based on proximity to arrival date
+- Force majeure provisions apply to extraordinary circumstances
+- Always review group contract terms carefully before committing to clients
+
+---
+
+## SECTION 10: TECHNOLOGY & API INTEGRATION GUIDE
+
+### Partner Portal Features
+- Real-time hotel search and booking
+- Booking management (view, modify, cancel)
+- Financial reports and statements
+- Commission tracking
+- Performance analytics and dashboards
+- Guest communication tools
+- Document management (confirmations, invoices)
+
+### API Integration
+- RESTful API with JSON response format
+- Endpoints: availability search, booking creation, modification, cancellation, rate plans
+- Sandbox environment available for testing
+- API documentation provided upon partnership agreement
+- Technical support: partnerships@knowaaglobal.com
+- Webhook notifications for booking status updates
+- Multi-currency and multi-language support
+
+### White-Label Solutions
+- Customizable booking engine for your website
+- Your branding, our inventory and technology
+- Seamless integration with your existing website design
+- Available upon request for qualified partners
+- Full API access for custom implementations
+
+---
+
+## SECTION 11: COMPLIANCE & DATA PROTECTION
+
+### Data Protection & Privacy
+- KNOWAA Global complies with applicable data protection regulations
+- Guest personal data is processed securely and confidentially
+- Partners must handle guest data in compliance with local privacy laws
+- Do not share guest personal information with unauthorized third parties
+- Booking data is retained per legal requirements and partnership agreements
+
+### PCI-DSS Compliance
+- Credit card data is processed through PCI-DSS compliant systems
+- Never send credit card numbers via email
+- Use secure payment channels provided by KNOWAA Global
+- Virtual credit cards (VCC) provide an additional layer of security for individual bookings
+
+### Anti-Fraud Measures
+- Verify client identity for high-value bookings
+- Report suspicious booking patterns to KNOWAA Global
+- Be cautious of last-minute bookings with unusual payment methods
+- KNOWAA Global monitors transactions for fraudulent activity
+
+---
+
+## SECTION 12: FREQUENTLY ASKED QUESTIONS (FAQ)
+
+### Booking Questions
+
+**Q: How do I make a booking through KNOWAA Global?**
+A: Log into the partner portal at knowaaglobal.com, search for your desired property, select your dates and room type, and complete the booking form. Most bookings are confirmed instantly. For assistance, email support@knowaaglobal.com.
+
+**Q: What is the minimum lead time for bookings?**
+A: Standard minimum lead time is 7 days prior to check-in. For last-minute requests (less than 7 days), contact support@knowaaglobal.com — we can often accommodate urgent bookings through our direct hotel relationships.
+
+**Q: Can I hold a booking without confirming?**
+A: Tentative holds are available for group bookings. For individual bookings, availability is not guaranteed until confirmed. Contact your account manager for hold options on specific requests.
+
+**Q: How do I book multiple rooms for a group?**
+A: For 10+ rooms, email partnerships@knowaaglobal.com with your requirements. We'll provide a custom group proposal with negotiated rates and terms.
+
+**Q: What currencies can I book in?**
+A: Primary booking currency is USD. EUR and GBP are available upon request. Multi-currency support is available through the API.
+
+### Modification & Cancellation Questions
+
+**Q: How do I modify a booking?**
+A: Email support@knowaaglobal.com with your booking reference number and the changes you need. Include the specific modification (dates, room type, guest name) and any relevant details.
+
+**Q: What is the cancellation policy?**
+A: Cancellation policies vary by property and rate type. All policies are clearly stated at the time of booking. Generally, flexible rates allow free cancellation up to 24-72 hours before check-in. Non-refundable rates cannot be cancelled without charges.
+
+**Q: Can I get a refund for a non-refundable booking?**
+A: Non-refundable bookings generally cannot be refunded. In exceptional circumstances (medical emergencies, natural disasters), we negotiate with hotels on a case-by-case basis. Travel insurance is recommended for non-refundable bookings.
+
+**Q: How do I cancel a booking?**
+A: Email support@knowaaglobal.com with your booking reference number and cancellation request. You'll receive a cancellation confirmation with any applicable charges.
+
+### Payment & Financial Questions
+
+**Q: What payment methods does KNOWAA Global accept?**
+A: Bank wire transfer, credit cards (Visa, Mastercard, Amex), and virtual credit cards. Net 30 terms available for qualified partners.
+
+**Q: When do I receive my commission?**
+A: Commission is settled according to your partnership agreement terms, typically monthly. Commission statements are available in the partner portal.
+
+**Q: How do I dispute a charge?**
+A: Email support@knowaaglobal.com with the booking reference, disputed amount, and supporting documentation. Disputes should be raised within 30 days of the invoice date.
+
+### Technical Questions
+
+**Q: How do I access the partner portal?**
+A: Visit knowaaglobal.com and log in with your partner credentials. If you need credentials or have login issues, email partnerships@knowaaglobal.com.
+
+**Q: Is API integration available?**
+A: Yes. KNOWAA Global offers a RESTful API with real-time availability, booking, and management capabilities. Contact partnerships@knowaaglobal.com for API documentation and sandbox access.
+
+**Q: Can I integrate KNOWAA Global with my existing booking system?**
+A: Yes. Our API is designed for seamless integration with major booking systems. White-label booking engine options are also available. Contact our technical team for integration support.
+
+### Partnership Questions
+
+**Q: How do I become a KNOWAA Global partner?**
+A: Contact partnerships@knowaaglobal.com with your agency details. Our partnership team will review your application and schedule an onboarding call. Requirements include a valid travel agency license and established client base.
+
+**Q: What are the benefits of being a KNOWAA Global partner?**
+A: Competitive net rates at 762+ premium properties, guaranteed allotments, 24/7 multilingual support, dedicated account manager, advanced analytics, and access to our Premium Experience Network.
+
+**Q: Is there a minimum booking volume requirement?**
+A: Minimum requirements vary by partnership tier. Contact partnerships@knowaaglobal.com for details on partnership levels and associated benefits.
+
+**Q: How do I access my partner analytics?**
+A: Log into the partner portal and navigate to the Analytics section. You'll find booking performance metrics, revenue reports, top properties, and market insights.
+
+### Emergency & Support Questions
+
+**Q: What do I do if my client has an emergency during their stay?**
+A: Call our 24/7 emergency line at +1 786-452-4140 immediately. For non-urgent issues, email support@knowaaglobal.com. We maintain direct relationships with all partner hotels and can intervene quickly.
+
+**Q: What if a hotel doesn't honor the booking?**
+A: Contact KNOWAA Global immediately. We will contact the hotel management directly to resolve the issue. If necessary, we will arrange alternative accommodation of equal or higher standard at no additional cost.
+
+**Q: How do I escalate an unresolved issue?**
+A: If standard support hasn't resolved your issue, request escalation to your dedicated account manager. For critical situations, use the emergency line +1 786-452-4140.
+
+**Q: What happens if there's a natural disaster at the destination?**
+A: Contact KNOWAA Global immediately. We activate our crisis response protocol: coordinating with hotels on guest safety, arranging alternative plans, managing cancellations/rebookings, and assisting with insurance documentation.
+
+---
+
+## SECTION 13: INDUSTRY TRENDS & MARKET INTELLIGENCE
+
+### Current B2B Travel Trends (2025-2026)
+- **Experiential Travel**: Clients increasingly want unique, authentic experiences beyond traditional hotel stays. KNOWAA Global's Premium Experience Network addresses this trend.
+- **Bleisure Travel**: Business travelers extending trips for leisure. Opportunity to upsell experiences and extended stays.
+- **Sustainability**: Growing demand for eco-friendly properties and responsible tourism. Many KNOWAA partner hotels have sustainability programs.
+- **Technology Integration**: AI-powered search, personalized recommendations, and automated booking processes are becoming standard.
+- **Wellness Tourism**: Spa, fitness, and wellness retreats are a growing segment. Several KNOWAA partner properties offer comprehensive wellness programs.
+- **Multi-Generational Travel**: Families booking larger groups spanning multiple generations. Requires properties with diverse amenity offerings.
+
+### Competitive Landscape
+- KNOWAA Global's advantage: Direct hotel contracts eliminate intermediary markups
+- Our technology platform provides real-time pricing competitive with major OTAs
+- Dedicated B2B focus means our entire operation is optimized for travel agent success
+- Unlike aggregators, we maintain direct accountability with every hotel in our portfolio
+
+---
+
+## SECTION 14: ONBOARDING CHECKLIST FOR NEW PARTNERS
+
+### Getting Started with KNOWAA Global
+1. Sign partnership agreement
+2. Receive partner portal login credentials
+3. Complete platform training (online or with account manager)
+4. Review rate access and commission structure
+5. Set up payment and billing preferences
+6. Add emergency contacts for 24/7 support
+7. Explore the property portfolio and start searching
+8. Make your first test booking
+9. Review analytics and reporting tools
+10. Schedule regular check-ins with your account manager
+
+### Key Contacts for New Partners
+- **General Inquiries**: info@knowaaglobal.com
+- **Partnership Setup**: partnerships@knowaaglobal.com
+- **Operational Support**: support@knowaaglobal.com
+- **Technical/API Support**: partnerships@knowaaglobal.com
+- **Emergency (24/7)**: +1 786-452-4140
+- **Office Address**: 4747 Collins Ave, Miami Beach, FL 33140
+
+---
+
+## SECTION 15: GLOSSARY OF ADDITIONAL TRAVEL INDUSTRY TERMS
+
+- **ADR (Average Daily Rate)**: Average revenue per paid occupied room
+- **RevPAR (Revenue Per Available Room)**: Total room revenue divided by available rooms
+- **Occupancy Rate**: Percentage of available rooms occupied during a period
+- **Run of House (ROH)**: Room type assigned at check-in at hotel's discretion
+- **Complimentary (Comp) Room**: Free room provided by hotel, often for group leaders
+- **Day Use Rate**: Rate for room usage during daytime only (no overnight stay)
+- **Connecting Rooms**: Adjacent rooms with a door between them (ideal for families)
+- **Adjoining Rooms**: Rooms next to each other without a connecting door
+- **Guaranteed Reservation**: Booking held all night with guest's credit card guarantee
+- **Walk-In**: Guest arriving without a reservation
+- **Turndown Service**: Evening service where bed is prepared for sleeping
+- **Club Level/Executive Floor**: Premium hotel floor with exclusive lounge, amenities, and services
+- **All-Inclusive**: Rate includes room, meals, drinks, and selected activities
+- **MAP (Modified American Plan)**: Rate includes room, breakfast, and dinner
+- **EP (European Plan)**: Room only, no meals included
+- **CP (Continental Plan)**: Room with continental breakfast
+- **AP (American Plan)**: Room with all meals included
+- **SGL/DBL/TPL/QAD**: Single/Double/Triple/Quadruple occupancy
+- **Pax**: Number of passengers/guests
+- **Rooming List**: Document listing all guests in a group with room assignments
+- **Black-Out Dates**: Dates when special rates or allotments are not available
+- **Yield Management**: Revenue optimization through pricing adjustments based on demand
+- **Channel Manager**: Software that manages hotel inventory across multiple distribution channels
+- **PMS (Property Management System)**: Software used by hotels to manage operations
+- **CRS (Central Reservation System)**: Centralized system for managing hotel reservations
