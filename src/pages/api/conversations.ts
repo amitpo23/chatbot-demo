@@ -25,6 +25,12 @@ export default async function handler(
       const { sessionId } = req.query;
 
       if (sessionId) {
+        const { data: session } = await supabase
+          .from("knowaa_sessions")
+          .select("user_id")
+          .eq("id", sessionId as string)
+          .single();
+
         const { data: messages, error } = await supabase
           .from("knowaa_messages")
           .select("content, speaker, created_at")
@@ -37,7 +43,12 @@ export default async function handler(
           return;
         }
 
-        res.status(200).json({ configured: true, sessionId, messages: messages || [] });
+        res.status(200).json({
+          configured: true,
+          sessionId,
+          userId: session?.user_id || null,
+          messages: messages || [],
+        });
         return;
       }
 

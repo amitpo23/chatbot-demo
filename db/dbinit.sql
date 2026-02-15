@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS knowaa_sessions (
 CREATE TABLE IF NOT EXISTS knowaa_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   session_id UUID NOT NULL REFERENCES knowaa_sessions(id) ON DELETE CASCADE,
-  speaker TEXT NOT NULL CHECK (speaker IN ('user', 'ai')),
+  speaker TEXT NOT NULL CHECK (speaker IN ('user', 'ai', 'agent')),
   content TEXT NOT NULL,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );

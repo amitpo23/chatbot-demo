@@ -77,6 +77,9 @@ export default function AdminPage({ authorized }: AdminProps) {
   const [selectedMessages, setSelectedMessages] = useState<
     { content: string; speaker: string; created_at: string }[]
   >([]);
+  const [selectedUserId, setSelectedUserId] = useState("");
+  const [agentMessage, setAgentMessage] = useState("");
+  const [agentSending, setAgentSending] = useState(false);
 
   // Active tab
   const [activeTab, setActiveTab] = useState("knowledge");
@@ -117,14 +120,17 @@ export default function AdminPage({ authorized }: AdminProps) {
 
   const fetchSessionMessages = async (sessionId: string) => {
     setSelectedSessionId(sessionId);
+    setAgentMessage("");
     try {
       const res = await fetch(
         `/api/conversations?sessionId=${encodeURIComponent(sessionId)}`
       );
       const data = await res.json();
       setSelectedMessages(data.messages || []);
+      setSelectedUserId(data.userId || "");
     } catch {
       setSelectedMessages([]);
+      setSelectedUserId("");
     }
   };
 
@@ -138,6 +144,49 @@ export default function AdminPage({ authorized }: AdminProps) {
     setSelectedMessages([]);
     fetchConversations();
   };
+
+  const sendAgentMessage = async () => {
+    if (!agentMessage.trim() || !selectedSessionId || agentSending) return;
+    setAgentSending(true);
+    try {
+      const secret =
+        new URLSearchParams(window.location.search).get("secret") || "";
+      const res = await fetch("/api/admin/send-message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-secret": secret,
+        },
+        body: JSON.stringify({
+          sessionId: selectedSessionId,
+          message: agentMessage.trim(),
+        }),
+      });
+      if (res.ok) {
+        setSelectedMessages((prev) => [
+          ...prev,
+          {
+            content: agentMessage.trim(),
+            speaker: "agent",
+            created_at: new Date().toISOString(),
+          },
+        ]);
+        setAgentMessage("");
+      }
+    } catch (err) {
+      console.error("Failed to send agent message:", err);
+    }
+    setAgentSending(false);
+  };
+
+  // Auto-refresh messages for selected session every 5s
+  useEffect(() => {
+    if (!selectedSessionId || activeTab !== "conversations") return;
+    const interval = setInterval(() => {
+      fetchSessionMessages(selectedSessionId);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [selectedSessionId, activeTab]);
 
   useEffect(() => {
     if (authorized) {
@@ -635,6 +684,8 @@ export default function AdminPage({ authorized }: AdminProps) {
                           style={
                             msg.speaker === "user"
                               ? styles.convMsgUser
+                              : msg.speaker === "agent"
+                              ? styles.convMsgAgent
                               : styles.convMsgBot
                           }
                         >
@@ -642,6 +693,8 @@ export default function AdminPage({ authorized }: AdminProps) {
                             <strong>
                               {msg.speaker === "user"
                                 ? "User"
+                                : msg.speaker === "agent"
+                                ? "Agent"
                                 : "Bot"}
                             </strong>
                             <span style={styles.convMsgTime}>
@@ -657,6 +710,37 @@ export default function AdminPage({ authorized }: AdminProps) {
                       ))}
                     </div>
                   )}
+                  <div style={styles.agentInputArea}>
+                    <div style={styles.row}>
+                      <input
+                        type="text"
+                        placeholder="Type a message as agent..."
+                        value={agentMessage}
+                        onChange={(e) => setAgentMessage(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") sendAgentMessage();
+                        }}
+                        style={styles.input}
+                        disabled={agentSending}
+                      />
+                      <button
+                        type="button"
+                        onClick={sendAgentMessage}
+                        disabled={agentSending || !agentMessage.trim()}
+                        style={{
+                          ...styles.buttonAgent,
+                          opacity: agentSending || !agentMessage.trim() ? 0.5 : 1,
+                        }}
+                      >
+                        {agentSending ? "Sending..." : "Send as Agent"}
+                      </button>
+                    </div>
+                    {selectedUserId && (
+                      <p style={styles.hint}>
+                        Replying to channel: {selectedUserId}
+                      </p>
+                    )}
+                  </div>
                 </section>
               )}
             </>
@@ -971,6 +1055,12 @@ const styles: Record<string, React.CSSProperties> = {
     borderRadius: 6,
     border: "1px solid #e0e0e0",
   },
+  convMsgAgent: {
+    padding: "0.5rem 0.75rem",
+    backgroundColor: "#fff3e0",
+    borderRadius: 6,
+    border: "1px solid #ffcc80",
+  },
   convMsgHeader: {
     display: "flex",
     justifyContent: "space-between",
@@ -980,5 +1070,22 @@ const styles: Record<string, React.CSSProperties> = {
   convMsgTime: {
     color: "#999",
     fontSize: "0.75rem",
+  },
+  agentInputArea: {
+    marginTop: "0.75rem",
+    padding: "0.75rem",
+    backgroundColor: "#fff",
+    borderRadius: 6,
+    border: "1px solid #e0e0e0",
+  },
+  buttonAgent: {
+    padding: "0.5rem 1rem",
+    backgroundColor: "#e65100",
+    color: "white",
+    border: "none",
+    borderRadius: 4,
+    cursor: "pointer",
+    fontSize: "0.95rem",
+    whiteSpace: "nowrap" as const,
   },
 };

@@ -6,7 +6,7 @@ import { Types } from "ably";
 
 type ConversationEntry = {
   message: string;
-  speaker: "bot" | "user";
+  speaker: "bot" | "user" | "agent";
   date: Date;
   id?: string;
 };
@@ -74,6 +74,18 @@ export default function Home() {
         break;
       case "status":
         setStatusMessage(message.data.message);
+        break;
+      case "agentMessage":
+        setConversation((state) => [
+          ...state,
+          {
+            message: message.data.message,
+            speaker: "agent" as const,
+            date: new Date(),
+          },
+        ]);
+        setBotIsTyping(false);
+        setStatusMessage("");
         break;
       case "responseEnd":
       default:
@@ -231,19 +243,27 @@ export default function Home() {
                     {entry.speaker === "bot" && (
                       <div style={st.avatar}>K</div>
                     )}
+                    {entry.speaker === "agent" && (
+                      <div style={st.avatarAgent}>A</div>
+                    )}
                     <div
                       style={
                         entry.speaker === "user"
                           ? st.bubbleUser
+                          : entry.speaker === "agent"
+                          ? st.bubbleAgent
                           : st.bubbleBot
                       }
                     >
-                      {entry.speaker === "bot" ? (
+                      {entry.speaker === "agent" && (
+                        <p style={st.agentLabel}>KNOWAA Agent</p>
+                      )}
+                      {entry.speaker === "user" ? (
+                        <p style={{ margin: 0 }}>{entry.message}</p>
+                      ) : (
                         <div className="markdown-body">
                           <ReactMarkdown>{entry.message}</ReactMarkdown>
                         </div>
-                      ) : (
-                        <p style={{ margin: 0 }}>{entry.message}</p>
                       )}
                     </div>
                   </div>
@@ -529,6 +549,38 @@ const st: Record<string, React.CSSProperties> = {
     fontSize: 14,
     lineHeight: "1.5",
     color: "#1f2937",
+  },
+  avatarAgent: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    backgroundColor: "#e65100",
+    color: "white",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 14,
+    fontWeight: 700,
+    flexShrink: 0,
+    marginTop: 2,
+  },
+  bubbleAgent: {
+    maxWidth: "80%",
+    padding: "10px 16px",
+    borderRadius: "18px 18px 18px 4px",
+    backgroundColor: "#fff3e0",
+    border: "1px solid #ffcc80",
+    fontSize: 14,
+    lineHeight: "1.5",
+    color: "#1f2937",
+  },
+  agentLabel: {
+    margin: "0 0 4px 0",
+    fontSize: 11,
+    fontWeight: 700,
+    color: "#e65100",
+    textTransform: "uppercase" as const,
+    letterSpacing: "0.5px",
   },
   typingDots: { display: "flex", gap: 4, padding: "4px 0" },
   dot: {
