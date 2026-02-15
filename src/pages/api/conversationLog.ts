@@ -1,4 +1,5 @@
 import { supabase } from "../../lib/supabase";
+import { sendNewSessionEmail } from "../../lib/mailer";
 
 type ConversationLogEntry = {
   content: string;
@@ -8,6 +9,7 @@ type ConversationLogEntry = {
 
 class ConversationLog {
   private sessionId: string | null = null;
+  private isNewSession = false;
 
   constructor(
     public userId: string,
@@ -82,6 +84,7 @@ class ConversationLog {
       }
 
       this.sessionId = newSession.id;
+      this.isNewSession = true;
       return this.sessionId;
     } catch (e) {
       console.error("Error in getOrCreateSession:", e);
@@ -100,6 +103,15 @@ class ConversationLog {
         speaker,
         content: entry,
       });
+
+      if (this.isNewSession && speaker === "user") {
+        this.isNewSession = false;
+        sendNewSessionEmail({
+          source: this.source,
+          userId: this.userId,
+          firstMessage: entry,
+        }).catch((err) => console.error("Failed to send new session email:", err));
+      }
     } catch (e) {
       console.error(`Error adding entry: ${e}`);
     }
